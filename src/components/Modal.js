@@ -1,12 +1,23 @@
 import React from "react";
-import { AiOutlineClose } from "react-icons/ai";
+import { AiOutlineClose, AiOutlineCheckCircle } from "react-icons/ai";
+import { IoMdAddCircleOutline } from "react-icons/io";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleModalFalse } from "../redux/singleMovie/movieSlice";
+import ReactPlayer from "react-player";
+import { add, remove } from "../redux/myList/myListSlice";
 
 const Modal = () => {
   const modal = useSelector((state) => state.movie.modal);
   const details = useSelector((state) => state.movie.movie);
+  const myList = useSelector((state) => state.myList.myList);
   const dispatch = useDispatch();
+
+  const index = details?.videos?.results?.findIndex(
+    (video) => video.type === "Trailer"
+  );
+
+  const existingMovie = myList.find((i) => i.id === details.id);
+  console.log(existingMovie);
 
   return (
     <div
@@ -22,11 +33,19 @@ const Modal = () => {
           >
             <AiOutlineClose />
           </div>
+          {details?.videos?.results && (
+            <ReactPlayer
+              width={"100%"}
+              height={"100%"}
+              playing={modal}
+              url={`https://www.youtube.com/watch?v=${details.videos.results[index]?.key}`}
+            />
+          )}
         </div>
 
         <div className="flex bg-[#141414] p-5">
           <div className="w-[60%] lg:w-[70%] h-full ">
-            <div className="flex ">
+            <div className="flex items-center">
               <span
                 className={`${
                   details?.vote_average < 7
@@ -37,6 +56,18 @@ const Modal = () => {
                 {details?.vote_average}
               </span>
               <span className="text-gray-400">{details?.release_date}</span>
+
+              {existingMovie ? (
+                <AiOutlineCheckCircle
+                  className="add"
+                  onClick={() => dispatch(remove(details))}
+                />
+              ) : (
+                <IoMdAddCircleOutline
+                  className="add"
+                  onClick={() => dispatch(add(details))}
+                />
+              )}
             </div>
             <p className="text-gray-400 mt-5 ">{details?.overview}</p>
           </div>
@@ -44,7 +75,9 @@ const Modal = () => {
             <p className="text-gray-500">
               Genre:{" "}
               {details?.genres?.map((detail) => (
-                <span className="text-gray-400">{detail.name}, </span>
+                <span key={detail.id} className="text-gray-400">
+                  {detail.name},{" "}
+                </span>
               ))}
             </p>
             <p className="text-gray-500">

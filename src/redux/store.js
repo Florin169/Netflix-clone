@@ -6,6 +6,7 @@ import romanceSlice from "./movies/romanceSlice";
 import topRatedSlice from "./movies/topRatedSlice";
 import myListSlice from "./myList/myListSlice";
 import movieSlice from "./singleMovie/movieSlice";
+import userSlice from "./user/user";
 
 const store = configureStore({
   reducer: {
@@ -16,6 +17,7 @@ const store = configureStore({
     horror: horrorMoviesSlice,
     myList: myListSlice,
     movie: movieSlice,
+    user: userSlice,
   },
 });
 

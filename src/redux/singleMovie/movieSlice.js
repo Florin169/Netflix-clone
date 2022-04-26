@@ -1,8 +1,8 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
-export const getMovie = createAsyncThunk("movie/getMovie", async (mId) => {
+export const getMovie = createAsyncThunk("movie/getMovie", async (id) => {
   return await fetch(
-    `https://api.themoviedb.org/3/movie/${mId}?api_key=8a36975b4bc70fda85b6386d1ad3d4ed&language=en-US&append_to_response=videos`
+    `https://api.themoviedb.org/3/movie/${id}?api_key=8a36975b4bc70fda85b6386d1ad3d4ed&language=en-US&append_to_response=videos`
   ).then((res) => res.json());
 });
 
@@ -12,7 +12,6 @@ const movieSlice = createSlice({
     movie: [],
     statusbar: null,
     modal: false,
-    movieId: null,
   },
   reducers: {
     toggleModalTrue: (state) => {
@@ -21,10 +20,6 @@ const movieSlice = createSlice({
 
     toggleModalFalse: (state) => {
       state.modal = false;
-    },
-
-    movieId: (state, action) => {
-      state.movieId = action.payload;
     },
   },
   extraReducers: {
@@ -43,7 +38,6 @@ const movieSlice = createSlice({
   },
 });
 
-export const { toggleModalTrue, toggleModalFalse, movieId } =
-  movieSlice.actions;
+export const { toggleModalTrue, toggleModalFalse } = movieSlice.actions;
 
 export default movieSlice.reducer;

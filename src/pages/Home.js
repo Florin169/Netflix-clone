@@ -17,6 +17,7 @@ const Home = () => {
     (state) => state.documentaries.documentaries.results
   );
   const horror = useSelector((state) => state.horror.horrorMovies.results);
+  const myList = useSelector((state) => state.myList.myList);
 
   useEffect(() => {
     dispatch(getMovies());
@@ -32,7 +33,7 @@ const Home = () => {
     <div className="h-full ">
       {movies && (
         <div
-          className="h-[60vh] px-10 w-full bg-cover "
+          className="h-[60vh] px-10 w-full bg-cover"
           style={{
             backgroundImage: `url(https://image.tmdb.org/t/p/original/${movies[randomNr].backdrop_path})`,
           }}
@@ -56,7 +57,7 @@ const Home = () => {
       <TvMovies movies={movies} title="Trending" />
       <TvMovies movies={rated} title="Top Rated" />
       <TvMovies movies={romance} title="Romance Movies" />
-      <TvMovies title="My List" list />
+      <TvMovies movies={myList} title="My List" list />
       <TvMovies movies={documentaries} title="Documentaries" />
       <TvMovies movies={horror} title="Horror Movies" />
       <Modal />
