@@ -17,7 +17,6 @@ const Modal = () => {
   );
 
   const existingMovie = myList.find((i) => i.id === details.id);
-  console.log(existingMovie);
 
   return (
     <div

@@ -2,22 +2,14 @@ import React, { useState } from "react";
 import { auth } from "../utils/firebase";
 import {
   createUserWithEmailAndPassword,
-  onAuthStateChanged,
   signInWithEmailAndPassword,
 } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { loggedInUser } from "../redux/user/user";
+import logo from "../assets/Netflix-logo.svg";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
-  const dispatch = useDispatch();
-
-  onAuthStateChanged(auth, (currentUser) => {
-    dispatch(loggedInUser(currentUser));
-  });
 
   const navigate = useNavigate();
 
@@ -33,7 +25,7 @@ const Login = () => {
   const signIn = async () => {
     try {
       const user = await signInWithEmailAndPassword(auth, email, password);
-      console.log(user);
+      user && navigate("/home");
     } catch (error) {
       console.log(error.message);
     }
@@ -44,7 +36,7 @@ const Login = () => {
 
   return (
     <div className="h-screen p-5 bg-black md:bg-[#141414]">
-      <h1 className="text-6xl mb-24 md:mb-0">Netflix</h1>
+      <img src={logo} alt="logo" className="w-36 h-10" />
       <div className="flex justify-center items-center h-full ">
         <div className="w-full h-full md:w-[550px] md:h-[500px] md:bg-black">
           <div className="py-10 px-16">

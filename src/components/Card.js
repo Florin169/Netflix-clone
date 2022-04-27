@@ -13,7 +13,7 @@ const Card = ({ movie, id }) => {
       }}
       src={`https://image.tmdb.org/t/p/original/${movie.backdrop_path}`}
       alt=""
-      className="max-w-[260px] h-[144px] bg-green-200 rounded-md hover:scale-105 transition duration-200 cursor-pointer mr-5"
+      className="max-w-[260px] h-[144px] bg-green-200 rounded-md hover:scale-105 transition duration-200 cursor-pointer mr-5 "
     />
   );
 };

@@ -28,4 +28,8 @@
   .input {
     @apply w-full mb-5 h-14 rounded-md bg-zinc-800 outline-none pl-5;
   }
+
+  .list-card {
+    @apply flex px-5 w-full h-32  justify-between items-center border-b border-gray-700 font-bold hover:bg-[#242424] transition duration-300;
+  }
 }
